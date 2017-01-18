@@ -26,8 +26,8 @@ func main() {
 		}
 
 		old.Count += new.Count
-		for a, c := range (*new).Set {
-			(*old).Set[a] += c
+		for a, c := range new.Set {
+			old.Set[a] += c
 		}
 
 		insertSet(base, old)
