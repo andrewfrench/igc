@@ -1,0 +1,7 @@
+.idea/
+bin/
+pkg/
+*.sh
+*.iml
+src/github.com/*
+.notes
