@@ -1,13 +1,10 @@
 package main
 
 import (
-	//"os"
-	//"fmt"
 	"database/sql"
 	"log"
 	_ "github.com/lib/pq"
 	"net/http"
-	"text/template"
 	"strings"
 	"fmt"
 	"time"
@@ -18,17 +15,6 @@ import (
 var correlationsSetChannel chan *map[string]float64
 
 func main() {
-	indexTemplate, err := template.New("index.tmpl").ParseFiles("./tmpl/index.tmpl")
-	discoverTemplate, err := template.New("discover.tmpl").ParseFiles("./tmpl/discover.tmpl")
-
-	if err != nil { log.Fatal(err.Error()) }
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Serving index")
-		err := indexTemplate.Execute(w, nil)
-		if err != nil { log.Fatal(err.Error()) }
-	})
-
 	http.HandleFunc("/discover", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Serving correlations")
 
@@ -40,8 +26,11 @@ func main() {
 
 		correlationsList := handleQuery(tagSlice, ignoreSlice)
 
-		err := discoverTemplate.Execute(w, map[string][]string{"suggestions": correlationsList})
+		respJson, err := json.Marshal(correlationsList)
+
 		if err != nil { log.Fatal(err.Error()) }
+
+		w.Write(respJson)
 	})
 
 	http.ListenAndServe(":8080", nil)
