@@ -30,6 +30,7 @@ func main() {
 
 		if err != nil { log.Fatal(err.Error()) }
 
+        w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Write(respJson)
 	})
 

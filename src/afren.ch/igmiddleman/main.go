@@ -21,7 +21,7 @@ func main() {
 		if setExists(base) {
 			old = cookedSet(base)
 		} else {
-			old = &c_set{}
+			old = new(c_set)
 			old.Set = map[string]int{}
 		}
 
