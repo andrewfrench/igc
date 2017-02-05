@@ -63,11 +63,17 @@ func Get(base string) *set.CorrelationSet {
 }
 
 func removeExpired() {
+	if len(c.keyQueue) == 0 { return }
 	if time.Since(c.keyQueue[0].added) > c.maxAge {
 		key := c.keyQueue[0].key
 		log.Printf("%s expired, removing from cache", key)
 		delete(c.sets, key)
-		c.keyQueue = c.keyQueue[1:]
+
+		if len(c.keyQueue) > 1 {
+			c.keyQueue = c.keyQueue[1:]
+		} else {
+			c.keyQueue = []queueElement{}
+		}
 
 		removeExpired()
 	}

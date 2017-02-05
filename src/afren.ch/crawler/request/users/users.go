@@ -2,7 +2,6 @@ package users
 
 import (
 	"fmt"
-	"os"
 	"log"
 	"afren.ch/db"
 	"net/http"
