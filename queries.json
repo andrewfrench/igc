@@ -1,0 +1,19 @@
+{
+  "get_new_user_id": "UPDATE USERS SET VISITED = TRUE WHERE ID = (SELECT ID FROM USERS WHERE VISITED = FALSE ORDER BY ADDED ASC LIMIT 1) RETURNING ID;",
+  "store_user_id": "INSERT INTO USERS (ID, USERNAME, ADDED) VALUES ($1, $2, NOW());",
+  "new_user_count": "SELECT COUNT(*) FROM USERS WHERE VISITED = FALSE;",
+  "user_exists": "SELECT COUNT(*) FROM USERS WHERE ID = $1;",
+
+  "get_new_media_id": "UPDATE MEDIA SET VISITED = TRUE WHERE ID = (SELECT ID FROM MEDIA WHERE VISITED = FALSE ORDER BY ADDED ASC LIMIT 1) RETURNING ID;",
+  "store_media_id": "INSERT INTO MEDIA (ID, ADDED) VALUES ($1, NOW());",
+  "new_media_count": "SELECT COUNT(*) FROM MEDIA WHERE VISITED = FALSE;",
+  "media_exists": "SELECT COUNT(*) FROM MEDIA WHERE ID = $1;",
+
+  "store_correlation_pair": "INSERT INTO H (BASE, ASSOC, ADDED) VALUES ($1, $2, NOW());",
+
+  "insert_association_set": "INSERT INTO A (BASE, ASSOCS, ADDED, UPDATED) VALUES ($1, $2, NOW(), NOW());",
+  "update_association_set": "UPDATE A SET ASSOCS = $2, UPDATED = NOW() WHERE BASE = $1;",
+  "get_association_count": "SELECT COUNT(*) FROM A WHERE BASE = $1;",
+  "query_incoming_set": "DELETE FROM H WHERE BASE = (SELECT BASE FROM H LIMIT 1) RETURNING BASE, ASSOC;",
+  "query_association_set": "SELECT ASSOCS FROM A WHERE BASE = $1;"
+}
