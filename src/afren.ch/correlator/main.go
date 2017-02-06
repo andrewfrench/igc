@@ -2,11 +2,10 @@ package main
 
 import (
 	"time"
-	"afren.ch/correlator/set"
+	"afren.ch/set"
 	"afren.ch/db"
 	"log"
 )
-
 
 func main() {
 	for true {
@@ -26,6 +25,10 @@ func main() {
 			}
 
 			incoming = set.Merge(incoming, existing)
+
+			log.Printf("Updated %s", incoming.GetBase())
+		} else {
+			log.Printf("Created %s", incoming.GetBase())
 		}
 
 		incoming.Save()

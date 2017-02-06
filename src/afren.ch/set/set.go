@@ -68,6 +68,8 @@ func (s *CorrelationSet) Save() error {
 
 func Merge(a, b *CorrelationSet) *CorrelationSet {
 	new := EmptySet()
+	new.SetBase(a.GetBase())
+	new.Count = a.Count + b.Count
 
 	for a, c := range a.AssocMap {
 		new.increaseAssocBy(a, c)

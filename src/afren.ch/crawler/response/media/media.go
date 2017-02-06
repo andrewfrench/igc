@@ -3,7 +3,6 @@ package media
 import (
 	"encoding/json"
 	"afren.ch/db"
-	"log"
 	"afren.ch/crawler/response/media/correlate"
 )
 
@@ -37,9 +36,6 @@ func Handle(data []byte) error {
 	for _, m := range mr.Media {
 		correlationCount += correlate.Correlate(m.Tags)
 	}
-
-	log.Printf("Handled %d media", len(mr.Media))
-	log.Printf("Handled %d correlations", correlationCount)
 
 	return nil
 }

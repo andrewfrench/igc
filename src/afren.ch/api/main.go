@@ -8,7 +8,7 @@ import (
 	"time"
 	"encoding/json"
 	"afren.ch/cache"
-	"afren.ch/correlator/set"
+	"afren.ch/set"
 	"afren.ch/env"
 )
 

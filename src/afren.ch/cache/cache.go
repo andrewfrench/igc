@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"afren.ch/correlator/set"
+	"afren.ch/set"
 	"afren.ch/env"
 	"time"
 	"log"
@@ -80,5 +80,7 @@ func removeExpired() {
 }
 
 func reportSize() {
-	log.Printf("Cache size: %d", len(c.sets))
+	size := len(c.sets)
+
+	if size > 0 { log.Printf("Cache size: %d", len(c.sets)) }
 }
